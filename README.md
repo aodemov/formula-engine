@@ -1,1 +1,2 @@
-# formula-engine
+# Formula engine
+Simple math expression parser
