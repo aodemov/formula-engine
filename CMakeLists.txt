@@ -10,7 +10,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 # ------------------------ FILES ------------------------
 
 set(SOURCES
-  ${PROJECT_SOURCE_DIR}/src/main.cc
+  ${PROJECT_SOURCE_DIR}/src/token.cc
+  ${PROJECT_SOURCE_DIR}/src/lexer.cc
+  ${PROJECT_SOURCE_DIR}/src/scanner.cc
+)
+
+set(HEADERS
+  ${PROJECT_SOURCE_DIR}/src/token.h
+  ${PROJECT_SOURCE_DIR}/src/lexer.h
+  ${PROJECT_SOURCE_DIR}/src/scanner.h
 )
 
 set(LIB_NAME engine)
@@ -23,13 +31,15 @@ add_library(${LIB_NAME} "")
 target_sources(
   ${LIB_NAME}
   PUBLIC
-  ${SOURCES}
+    ${HEADERS}
+  PRIVATE
+    ${SOURCES}
 )
 
 target_include_directories(
   ${LIB_NAME}
   PUBLIC
-    src/
+    ${PROJECT_SOURCE_DIR}/src/
 )
 
 target_include_directories(${LIB_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
