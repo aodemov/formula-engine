@@ -4,12 +4,14 @@
 #include <cstdint>
 #include <string>
 
+#include <iostream>
+
 namespace formulaEngine {
 class Scanner {
   public:
     static constexpr char kEndOfInput = static_cast<char>(-1);
 
-    explicit Scanner(std::string buffer)
+    explicit Scanner(std::string& buffer)
       : bufferStart(buffer.begin()),
         bufferEnd(buffer.end()),
         bufferPosition(bufferStart)
