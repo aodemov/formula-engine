@@ -13,12 +13,14 @@ set(SOURCES
   ${PROJECT_SOURCE_DIR}/src/token.cc
   ${PROJECT_SOURCE_DIR}/src/lexer.cc
   ${PROJECT_SOURCE_DIR}/src/scanner.cc
+  ${PROJECT_SOURCE_DIR}/src/ast-node.cc
 )
 
 set(HEADERS
   ${PROJECT_SOURCE_DIR}/src/token.h
   ${PROJECT_SOURCE_DIR}/src/lexer.h
   ${PROJECT_SOURCE_DIR}/src/scanner.h
+  ${PROJECT_SOURCE_DIR}/src/ast-node.h
 )
 
 set(LIB_NAME engine)
