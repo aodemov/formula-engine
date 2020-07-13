@@ -11,8 +11,7 @@ fetch_googletest(
 # ------------------------ FILES ------------------------
 
 set(TEST_FILES
-  testf_add.cc
-  testf_multiply.cc
+  lexer-test.cc
 )
 
 # ------------------------ TESTS ------------------------
