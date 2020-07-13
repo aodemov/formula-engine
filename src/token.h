@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include <string>
+#include <limits>
 
 namespace formulaEngine {
 
@@ -11,6 +12,8 @@ class Token {
 public:
   enum TokenType {
     EOE,        // End of expression
+    ILLEGAL,
+
     PLUS,       // +
     MINUS,      // -
     STAR,       // *
@@ -20,8 +23,6 @@ public:
     NUMBER,     // number
 
     WHITESPACE, // whitespace
-
-    ILLEGAL,
   };
 
   size_t beginPosition;
@@ -40,7 +41,7 @@ public:
     : beginPosition(std::numeric_limits<size_t>::max()),
       endPosition(std::numeric_limits<size_t>::max()),
       value(""),
-      type()
+      type(Token::ILLEGAL)
       {}
 };
 
