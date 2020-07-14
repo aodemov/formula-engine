@@ -14,11 +14,13 @@ public:
     {}
 
   Token ReadNext();
+  Token Peek();
 private:
   Token::TokenType ReadNumber();
   void SkipWhitespace();
 
   Token::TokenType ReadSingleToken();
+  void ReadNextToken();
 
   constexpr Token::TokenType GetOneCharToken(char c) {
     return
@@ -35,5 +37,6 @@ private:
 
   Scanner* scanner;
   Token current;
+  Token next;
 };
 }

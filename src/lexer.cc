@@ -4,16 +4,28 @@
 
 namespace formulaEngine {
 Token Lexer::ReadNext(){
-  // if (scanner->EndOfInput())
-  //   return Token(scanner->Position(), scanner->Position(), "", Token::TokenType::EOE);
-  
-  // SkipWhitespace();
+  if (next.type == Token::UNINITIALIZED) {
+    ReadNextToken();
+  }
 
-  current.value = "";
-  current.type = ReadSingleToken();
-  current.endPosition = scanner->Position();
+  current = next;
+  ReadNextToken();
 
   return current;
+}
+
+Token Lexer::Peek(){
+  if (next.type == Token::UNINITIALIZED) {
+    ReadNextToken();
+  }
+
+  return next;
+}
+
+void Lexer::ReadNextToken() {
+    next.value = "";
+    next.type = ReadSingleToken();
+    next.endPosition = scanner->Position(); 
 }
 
 Token::TokenType Lexer::ReadSingleToken() {
@@ -21,7 +33,7 @@ Token::TokenType Lexer::ReadSingleToken() {
   char c;
   
   do {
-    current.beginPosition = scanner->Position();
+    next.beginPosition = scanner->Position();
 
     c = scanner->Peek();
     token = GetOneCharToken(c);
@@ -33,7 +45,7 @@ Token::TokenType Lexer::ReadSingleToken() {
       case Token::SLASH:
       case Token::PERCENT:
         // One character tokens
-        current.value = scanner->Advance();
+        next.value = scanner->Advance();
         return token;
 
       case Token::WHITESPACE:
@@ -67,7 +79,7 @@ Token::TokenType Lexer::ReadNumber() {
     return Token::ILLEGAL;
 
   while (isDigit(scanner->Peek())) {
-    current.value += scanner->Advance();
+    next.value += scanner->Advance();
   }
 
   return Token::NUMBER;
