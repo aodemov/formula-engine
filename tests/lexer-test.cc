@@ -23,7 +23,7 @@ TEST(LexerTest, BasicCase){
   };
 
   string input = "12 /205% 1";
-  formulaEngine::Lexer lexer(make_unique<Scanner>(new Scanner(input)));
+  formulaEngine::Lexer lexer(make_unique<Scanner>(input));
 
   for(auto it = v.begin(); it != v.end(); it++) {
     auto tok = lexer.ReadNext();
@@ -47,7 +47,7 @@ TEST(LexerTest, NewLine){
   };
 
   string input = "453 \n\r 5";
-  formulaEngine::Lexer lexer(make_unique<Scanner>(new Scanner(input)));
+  formulaEngine::Lexer lexer(make_unique<Scanner>(input));
 
   for(auto it = v.begin(); it != v.end(); it++) {
     auto tok = lexer.ReadNext();
@@ -72,7 +72,7 @@ TEST(LexerTest, Spaces){
   };
 
   string input = "453              5     ";
-  formulaEngine::Lexer lexer(make_unique<Scanner>(new Scanner(input)));
+  formulaEngine::Lexer lexer(make_unique<Scanner>(input));
 
   for(auto it = v.begin(); it != v.end(); it++) {
     auto tok = lexer.ReadNext();
