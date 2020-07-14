@@ -16,6 +16,11 @@ public:
     NUMBER
   };
 
+  explicit AstNode(Token token, AstNodeType type)
+    : token_(token),
+      type_(type)
+    {}
+
   const Token& token() const {
     return token_;
   }
@@ -23,11 +28,6 @@ public:
   AstNodeType type() const {
     return type_;
   }
-
-  explicit AstNode(Token token, AstNodeType type)
-    : token_(token),
-      type_(type)
-    {}
 
 protected:
   Token token_;
