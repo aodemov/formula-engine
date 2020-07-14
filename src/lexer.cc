@@ -25,7 +25,9 @@ Token Lexer::Peek(){
 void Lexer::ReadNextToken() {
     next.value = "";
     next.type = ReadSingleToken();
-    next.endPosition = scanner->Position(); 
+    next.endPosition = scanner->Position();
+    if (next.type == Token::ILLEGAL)
+      throw ParsingException(next.value, next.beginPosition, next.endPosition);
 }
 
 Token::TokenType Lexer::ReadSingleToken() {
