@@ -22,8 +22,8 @@ AstNode* Parser::ParseExpression() {
 
     AstNode::AstNodeType nodeType;
     switch(next.type){
-      case Token::PLUS:    nodeType = AstNode::MUL; break;
-      case Token::MINUS:   nodeType = AstNode::DIV; break;
+      case Token::PLUS:    nodeType = AstNode::ADD; break;
+      case Token::MINUS:   nodeType = AstNode::SUB; break;
     }
 
     left = new BinaryOperatorNode(next, nodeType, left, right);
