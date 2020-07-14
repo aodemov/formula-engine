@@ -21,6 +21,9 @@ public:
       type_(type)
     {}
 
+  AstNode(const AstNode& other) = delete;
+  void operator=(const AstNode& other) = delete;
+
   const Token& token() const {
     return token_;
   }
@@ -71,6 +74,11 @@ public:
 
   AstNode* right() const {
     return right_;
+  }
+
+  ~BinaryOperatorNode() {
+    delete left_;
+    delete right_;
   }
 
 
