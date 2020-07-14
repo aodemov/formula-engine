@@ -35,6 +35,7 @@ public:
 protected:
   Token token_;
   AstNodeType type_;
+  virtual bool Polymorphic() = 0;
 };
 
 class NumberNode : public AstNode {
@@ -51,6 +52,9 @@ public:
 
 private:
   int value_;
+  virtual bool Polymorphic() {
+    return true;
+  }
 };
 
 class OperatorNode : public AstNode {
@@ -58,6 +62,11 @@ public:
   explicit OperatorNode(Token token, AstNodeType type)
     : AstNode(token, type)
     {}
+
+private:
+  virtual bool Polymorphic() {
+    return true;
+  }
 };
 
 class BinaryOperatorNode : public OperatorNode {
@@ -85,5 +94,9 @@ public:
 private:
   AstNode* left_;
   AstNode* right_;
+
+  virtual bool Polymorphic() {
+    return true;
+  }
 };
 }
