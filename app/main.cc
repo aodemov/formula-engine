@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include "lexer.h"
 
@@ -7,8 +8,7 @@ int main(int, char**) {
   std::string input;
   std::getline(std::cin, input);
 
-  formulaEngine::Scanner scanner(input);
-  formulaEngine::Lexer lexer(&scanner);
+  formulaEngine::Lexer lexer(std::make_unique<formulaEngine::Scanner>(input));
 
   formulaEngine::Token token;
   while ((token = lexer.ReadNext()).type != formulaEngine::Token::EOE) {
