@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <memory>
 
 #include "token.h"
 #include "scanner.h"
@@ -9,8 +10,8 @@
 namespace formulaEngine {
 class Lexer {
 public:
-  explicit Lexer(Scanner* scanner)
-    : scanner(scanner)
+  explicit Lexer(std::unique_ptr<Scanner> scanner)
+    : scanner(std::move(scanner))
     {}
 
   Token ReadNext();
@@ -35,7 +36,7 @@ private:
       Token::ILLEGAL;
   }
 
-  Scanner* scanner;
+  std::unique_ptr<Scanner> scanner;
   Token current;
   Token next;
 };
