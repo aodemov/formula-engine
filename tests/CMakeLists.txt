@@ -12,6 +12,7 @@ fetch_googletest(
 
 set(TEST_FILES
   lexer-test.cc
+  parser-test.cc
 )
 
 # ------------------------ TESTS ------------------------
