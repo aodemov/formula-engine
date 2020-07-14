@@ -11,6 +11,7 @@ namespace formulaEngine {
 class Token {
 public:
   enum TokenType {
+    UNINITIALIZED,
     EOE,        // End of expression
     ILLEGAL,
 
@@ -41,7 +42,7 @@ public:
     : beginPosition(std::numeric_limits<size_t>::max()),
       endPosition(std::numeric_limits<size_t>::max()),
       value(""),
-      type(Token::ILLEGAL)
+      type(Token::UNINITIALIZED)
       {}
 };
 
