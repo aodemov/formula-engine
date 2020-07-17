@@ -18,7 +18,9 @@ Engine::Engine()
 
 int Engine::Evaluate(std::string& expression) {
   auto node = parser_->Parse(expression);
-  return EvaluateNode(node);
+  int result = EvaluateNode(node);
+  allocator_->DeleteAll();
+  return result;
 }
 
 int Engine::EvaluateNode(AstNode* node) {
