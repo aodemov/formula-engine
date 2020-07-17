@@ -1,6 +1,15 @@
 #include "ast-allocator.h"
+#include <math.h>
 
 namespace formulaEngine {
+
+size_t AstAllocator::RoundAlign(size_t size, size_t alignment) {
+  return std::ceil(size / alignment) * alignment;
+}
+
+AstAllocator::~AstAllocator() {
+  DeleteAll();
+}
 
 void* AstAllocator::Allocate(size_t size) {
   size = RoundAlign(size, kAlignment);
