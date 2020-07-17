@@ -6,8 +6,8 @@
 namespace formulaEngine {
 class AstNodeFactory {
 public:
-  AstNodeFactory()
-    : allocator_(new AstAllocator())
+  AstNodeFactory(AstAllocator* allocator)
+    : allocator_(allocator)
     {}
 
   AstNodeFactory(const AstNodeFactory& other) = delete;
