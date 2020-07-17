@@ -6,7 +6,7 @@
 
 namespace formulaEngine {
 AstNode* Parser::Parse(std::string& buffer) {
-  lexer = new Lexer(std::make_unique<Scanner>(buffer));
+  lexer_ = new Lexer(std::make_unique<Scanner>(buffer));
 
   return ParseExpression();
 }
@@ -14,9 +14,9 @@ AstNode* Parser::Parse(std::string& buffer) {
 AstNode* Parser::ParseExpression() {
   auto left = ParseTerm();
 
-  auto next = lexer->Peek();
+  auto next = lexer_->Peek();
   while (next.type == Token::PLUS || next.type == Token::MINUS) {
-    next = lexer->ReadNext();
+    next = lexer_->ReadNext();
 
     auto right = ParseTerm();
 
@@ -26,9 +26,9 @@ AstNode* Parser::ParseExpression() {
       case Token::MINUS:   nodeType = AstNode::SUB; break;
     }
 
-    left = new BinaryOperatorNode(next, nodeType, left, right);
+    left = factory_->NewBinaryOperatorNode(next, nodeType, left, right);
 
-    next = lexer->Peek();
+    next = lexer_->Peek();
   }
 
   return left;
@@ -37,9 +37,9 @@ AstNode* Parser::ParseExpression() {
 AstNode* Parser::ParseTerm() {
   auto left = ParseFactor();
 
-  auto next = lexer->Peek();
+  auto next = lexer_->Peek();
   while (next.type == Token::STAR || next.type == Token::SLASH || next.type == Token::PERCENT) {
-    next = lexer->ReadNext();
+    next = lexer_->ReadNext();
 
     auto right = ParseFactor();
 
@@ -50,9 +50,9 @@ AstNode* Parser::ParseTerm() {
       case Token::PERCENT: nodeType = AstNode::MOD; break;
     }
 
-    left = new BinaryOperatorNode(next, nodeType, left, right);
+    left = factory_->NewBinaryOperatorNode(next, nodeType, left, right);
     
-    next = lexer->Peek();
+    next = lexer_->Peek();
   }
 
   return left;
@@ -64,12 +64,12 @@ AstNode* Parser::ParseFactor() {
 
 AstNode* Parser::ParseNumber() {
   Expect(Token::NUMBER);
-  return new NumberNode(lexer->ReadNext(), AstNode::NUMBER);
+  return factory_->NewNumberNode(lexer_->ReadNext(), AstNode::NUMBER);
 }
 
 
 void Parser::Expect(Token::TokenType type) {
-  auto t = lexer->Peek();
+  auto t = lexer_->Peek();
   if(t.type != type)
     throw ParsingException(t.value, t.beginPosition, t.endPosition);
 }

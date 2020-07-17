@@ -17,12 +17,16 @@ TEST(ParserTest, Plus){
   using namespace formulaEngine;
 
   string input = "1 + 2";
-  auto parser = new Parser();
+  AstAllocator* allocator = new AstAllocator();
+  auto parser = new Parser(allocator);
+
   auto ast = parser->Parse(input);
 
   ASSERT_FALSE(ast == nullptr);
 
   ASSERT_EQ(ast->type(), AstNode::ADD);
+
+  cout << to_string(ast->type()) << endl;
   
   BinaryOperatorNode* astOp;
   ASSERT_NO_THROW(astOp = dynamic_cast<BinaryOperatorNode*>(ast));
@@ -38,7 +42,7 @@ TEST(ParserTest, Plus){
   ASSERT_EQ(left->value(), 1);
   ASSERT_EQ(right->value(), 2);
 
-  delete ast;
+  delete allocator;
 }
 
 TEST(ParserTest, PlusMultiply){
@@ -53,7 +57,8 @@ TEST(ParserTest, PlusMultiply){
   using namespace formulaEngine;
 
   string input = "1 + 2 * 3";
-  auto parser = new Parser();
+  AstAllocator* allocator = new AstAllocator();
+  auto parser = new Parser(allocator);
   auto ast = parser->Parse(input);
 
   ASSERT_FALSE(ast == nullptr);
@@ -87,5 +92,5 @@ TEST(ParserTest, PlusMultiply){
   ASSERT_NO_THROW(rights_right = dynamic_cast<NumberNode*>(right->right()));
   ASSERT_EQ(rights_right->value(), 3);
 
-  delete ast;
+  delete allocator;
 }
