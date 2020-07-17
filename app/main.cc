@@ -22,8 +22,8 @@ int main(int, char**) {
       break;
     }
 
-    formulaEngine::Engine* engine = new formulaEngine::Engine();
-    int result = engine->Evaluate(input);
+    formulaEngine::Engine engine;
+    int result = engine.Evaluate(input);
     std::cout << "RES: " << result << std::endl;
   }
 
