@@ -5,6 +5,10 @@
 #include "token.h"
 
 namespace formulaEngine{
+
+class AstNodeFactory;
+class AstAllocator;
+
 class AstNode {
 public:
   enum AstNodeType {
@@ -15,11 +19,6 @@ public:
     MOD,
     NUMBER
   };
-
-  explicit AstNode(Token token, AstNodeType type)
-    : token_(token),
-      type_(type)
-    {}
 
   AstNode(const AstNode& other) = delete;
   void operator=(const AstNode& other) = delete;
@@ -33,6 +32,14 @@ public:
   }
 
 protected:
+  friend class AstNodeFactory;
+  friend class AstAllocator;
+
+  explicit AstNode(Token token, AstNodeType type)
+    : token_(token),
+      type_(type)
+    {}
+
   Token token_;
   AstNodeType type_;
   virtual bool Polymorphic() = 0;
@@ -40,43 +47,43 @@ protected:
 
 class NumberNode : public AstNode {
 public:
-  explicit NumberNode(Token token, AstNodeType type)
-    : AstNode(token, type)
-    {
-      value_ = std::stoi(token_.value);
-    }
-
   int value() const {
     return value_;
   }
 
-private:
+protected:
+  friend class AstNodeFactory;
+  friend class AstAllocator;
+
+  explicit NumberNode(Token token, AstNodeType type)
+  : AstNode(token, type)
+  {
+    value_ = std::stoi(token_.value);
+  }
+
   int value_;
   virtual bool Polymorphic() {
     return true;
   }
 };
 
-class OperatorNode : public AstNode {
+class Expression : public AstNode {
 public:
-  explicit OperatorNode(Token token, AstNodeType type)
+protected:
+  friend class AstNodeFactory;
+  friend class AstAllocator;
+
+  explicit Expression(Token token, AstNodeType type)
     : AstNode(token, type)
     {}
 
-private:
   virtual bool Polymorphic() {
     return true;
   }
 };
 
-class BinaryOperatorNode : public OperatorNode {
+class BinaryOperatorNode : public Expression {
 public:
-  explicit BinaryOperatorNode(Token token, AstNodeType type, AstNode* left, AstNode* right)
-    : OperatorNode(token, type),
-      left_(left),
-      right_(right)
-    {}
-
   AstNode* left() const {
     return left_;
   }
@@ -91,7 +98,16 @@ public:
   }
 
 
-private:
+protected:
+  friend class AstNodeFactory;
+  friend class AstAllocator;
+
+  explicit BinaryOperatorNode(Token token, AstNodeType type, AstNode* left, AstNode* right)
+    : Expression(token, type),
+      left_(left),
+      right_(right)
+    {}
+
   AstNode* left_;
   AstNode* right_;
 

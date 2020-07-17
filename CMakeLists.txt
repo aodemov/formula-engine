@@ -15,6 +15,7 @@ set(SOURCES
   ${PROJECT_SOURCE_DIR}/src/scanner.cc
   ${PROJECT_SOURCE_DIR}/src/ast-node.cc
   ${PROJECT_SOURCE_DIR}/src/parser.cc
+  ${PROJECT_SOURCE_DIR}/src/ast-node-factory.cc
   ${PROJECT_SOURCE_DIR}/src/ast-allocator.cc
 )
 
@@ -24,6 +25,7 @@ set(HEADERS
   ${PROJECT_SOURCE_DIR}/src/scanner.h
   ${PROJECT_SOURCE_DIR}/src/ast-node.h
   ${PROJECT_SOURCE_DIR}/src/parser.h
+  ${PROJECT_SOURCE_DIR}/src/ast-node-factory.h
   ${PROJECT_SOURCE_DIR}/src/ast-allocator.h
 )
 
