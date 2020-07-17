@@ -17,6 +17,7 @@ set(SOURCES
   ${PROJECT_SOURCE_DIR}/src/parser.cc
   ${PROJECT_SOURCE_DIR}/src/ast-node-factory.cc
   ${PROJECT_SOURCE_DIR}/src/ast-allocator.cc
+  ${PROJECT_SOURCE_DIR}/src/engine.cc
 )
 
 set(HEADERS
@@ -27,6 +28,7 @@ set(HEADERS
   ${PROJECT_SOURCE_DIR}/src/parser.h
   ${PROJECT_SOURCE_DIR}/src/ast-node-factory.h
   ${PROJECT_SOURCE_DIR}/src/ast-allocator.h
+  ${PROJECT_SOURCE_DIR}/src/engine.h
 )
 
 set(LIB_NAME engine)
