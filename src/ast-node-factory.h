@@ -10,6 +10,9 @@ public:
     : allocator_(new AstAllocator())
     {}
 
+  AstNodeFactory(const AstNodeFactory& other) = delete;
+  AstNodeFactory& operator=(const AstNodeFactory& other) = delete;
+
   NumberNode* NewNumberNode(Token token, AstNode::AstNodeType type) {
     return allocator_->New<NumberNode>(token, type);
   }
