@@ -60,7 +60,12 @@ protected:
   AstAllocatorNode* AllocateNode (size_t size);
   void DeallocateNode (AstAllocatorNode* node);
 public:
-  AstAllocator() = default;
+  AstAllocator()
+    : head(nullptr),
+      position(0),
+      top(0)
+      {}
+      
   ~AstAllocator();
 
   AstAllocator(const AstAllocator& other) = delete;

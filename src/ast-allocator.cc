@@ -4,7 +4,7 @@
 namespace formulaEngine {
 
 size_t AstAllocator::RoundAlign(size_t size, size_t alignment) {
-  return std::ceil(size / alignment) * alignment;
+  return std::ceil(1.0 * size / alignment) * alignment;
 }
 
 AstAllocator::~AstAllocator() {
