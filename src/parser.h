@@ -21,6 +21,7 @@ public:
 
   ~Parser() {
     delete factory_;
+    delete lexer_;
   }
 
 private:
