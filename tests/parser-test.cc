@@ -25,8 +25,6 @@ TEST(ParserTest, Plus){
   ASSERT_FALSE(ast == nullptr);
 
   ASSERT_EQ(ast->type(), AstNode::ADD);
-
-  cout << to_string(ast->type()) << endl;
   
   BinaryOperatorNode* astOp;
   ASSERT_NO_THROW(astOp = dynamic_cast<BinaryOperatorNode*>(ast));
