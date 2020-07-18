@@ -74,3 +74,21 @@ TEST(EngineTest, ParenthesesTests){
     ASSERT_EQ(result, (*it).second);
   }
 }
+
+TEST(EngineTest, FActorialTests){
+  using namespace std;
+  using namespace formulaEngine;
+
+  vector<pair<string, double>> tests = {
+    make_pair("5!", 120),
+    make_pair("-5!", -120),
+    make_pair("(2 + 3)!", 120),
+    make_pair("-(2 + 3)!", -120),
+  };
+
+  Engine engine;
+  for(auto it = tests.begin(); it != tests.end(); it++) {
+    double result = engine.Evaluate((*it).first);
+    ASSERT_EQ(result, (*it).second);
+  }
+}
