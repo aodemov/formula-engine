@@ -5,6 +5,13 @@
 #include <cmath>
 
 namespace formulaEngine {
+int factorial(int n)
+{
+  if (n < 0)
+    return 0;
+  return (n == 1 || n == 0) ? 1 : factorial(n - 1) * n;
+}
+
 Engine::Engine()
   {
     allocator_ = new AstAllocator();
@@ -16,6 +23,8 @@ Engine::Engine()
     evaluationMap[AstNode::DIV] = &EvaluateDivision;
     evaluationMap[AstNode::MOD] = &EvaluateModulus;
     evaluationMap[AstNode::NUMBER] = &EvaluateNumber;
+    evaluationMap[AstNode::NEG] = &EvaluateNegation;
+    evaluationMap[AstNode::FAC] = &EvaluateFactorial;
   }
 
 double Engine::Evaluate(std::string& expression) {
@@ -76,6 +85,20 @@ double Engine::EvaluateModulus(AstNode* node) {
   auto right = EvaluateNode(n->right());
 
   return std::fmod(left, right);
+}
+
+double Engine::EvaluateNegation(AstNode* node) {
+  auto n = dynamic_cast<UnaryOperatorNode*>(node);
+  auto op = EvaluateNode(n->operand());
+
+  return -op;
+}
+
+double Engine::EvaluateFactorial(AstNode* node) {
+  auto n = dynamic_cast<UnaryOperatorNode*>(node);
+  auto op = EvaluateNode(n->operand());
+
+  return factorial(static_cast<int>(op));
 }
 
 }

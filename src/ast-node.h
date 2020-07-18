@@ -12,12 +12,14 @@ class AstAllocator;
 class AstNode {
 public:
   enum AstNodeType {
-    ADD,
-    SUB,
-    MUL,
-    DIV,
-    MOD,
-    NUMBER
+    ADD,    // Addition
+    SUB,    // Subtraction
+    MUL,    // Multiplication
+    DIV,    // Division
+    MOD,    // Modulus
+    NEG,    // Unary negation
+    FAC,    // Factorial
+    NUMBER  // Number
   };
 
   AstNode(const AstNode& other) = delete;
@@ -103,6 +105,32 @@ protected:
 
   AstNode* left_;
   AstNode* right_;
+
+  virtual bool Polymorphic() {
+    return true;
+  }
+};
+
+class UnaryOperatorNode : public Expression {
+public:
+  AstNode* operand() const {
+    return operand_;
+  }
+
+  ~UnaryOperatorNode() {
+    delete operand_;
+  }
+
+protected:
+  friend class AstNodeFactory;
+  friend class AstAllocator;
+
+  explicit UnaryOperatorNode(AstNodeType type, AstNode* operand)
+    : Expression(type),
+      operand_(operand)
+    {}
+
+  AstNode* operand_;
 
   virtual bool Polymorphic() {
     return true;

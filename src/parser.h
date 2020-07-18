@@ -31,8 +31,11 @@ private:
   AstNode* ParseExpression();
   AstNode* ParseTerm();
   AstNode* ParseFactor();
+  AstNode* ParsePrimary();
+  AstNode* ParseSubexpression();
   AstNode* ParseNumber();
 
+  bool IsNext(Token::TokenType);
   void Expect(Token::TokenType);
 };
 }

@@ -28,6 +28,8 @@ private:
   double EvaluateMultiplication(AstNode* node);
   double EvaluateDivision(AstNode* node);
   double EvaluateModulus(AstNode* node);
+  double EvaluateNegation(AstNode* node);
+  double EvaluateFactorial(AstNode* node);
 
   Parser* parser_;
   AstAllocator* allocator_;

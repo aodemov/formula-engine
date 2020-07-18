@@ -33,6 +33,7 @@ private:
       c == '%' ? Token::PERCENT :
       c == '(' ? Token::LPAREN :
       c == ')' ? Token::RPAREN :
+      c == '!' ? Token::EXCL :
       isDecimalPoint(c) ? Token::POINT :
       isDigit(c) ? Token::NUMBER :
       isWhitespace(c) ? Token::WHITESPACE :

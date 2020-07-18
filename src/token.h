@@ -21,6 +21,8 @@ public:
     SLASH,      // /
     PERCENT,    // %
 
+    EXCL,       // !
+
     POINT,      // .
 
     LPAREN,       // (

@@ -21,6 +21,10 @@ public:
     return allocator_->New<BinaryOperatorNode>(type, left, right);
   }
 
+  UnaryOperatorNode* NewUnaryOperatorNode(AstNode::AstNodeType type, AstNode* operand) {
+    return allocator_->New<UnaryOperatorNode>(type, operand);
+  }
+
 private:
   AstAllocator* allocator_;
 };

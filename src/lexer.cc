@@ -48,6 +48,7 @@ Token::TokenType Lexer::ReadSingleToken() {
       case Token::PERCENT:
       case Token::LPAREN:
       case Token::RPAREN:
+      case Token::EXCL:
         // One character tokens
         next.value = scanner->Advance();
         return token;
