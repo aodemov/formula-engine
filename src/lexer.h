@@ -17,11 +17,12 @@ public:
   Token ReadNext();
   Token Peek();
 private:
-  Token::TokenType ReadNumber();
-  void SkipWhitespace();
-
   Token::TokenType ReadSingleToken();
+  Token::TokenType ReadNumber();
   void ReadNextToken();
+
+  void SkipWhitespace();
+  bool ReadDigits();
 
   constexpr Token::TokenType GetOneCharToken(char c) {
     return
@@ -30,6 +31,7 @@ private:
       c == '*' ? Token::STAR :
       c == '/' ? Token::SLASH :
       c == '%' ? Token::PERCENT :
+      isDecimalPoint(c) ? Token::POINT :
       isDigit(c) ? Token::NUMBER :
       isWhitespace(c) ? Token::WHITESPACE :
       c == Scanner::kEndOfInput ? Token::EOE :

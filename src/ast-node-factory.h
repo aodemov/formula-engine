@@ -13,7 +13,7 @@ public:
   AstNodeFactory(const AstNodeFactory& other) = delete;
   AstNodeFactory& operator=(const AstNodeFactory& other) = delete;
 
-  NumberNode* NewNumberNode(AstNode::AstNodeType type, int value) {
+  NumberNode* NewNumberNode(AstNode::AstNodeType type, double value) {
     return allocator_->New<NumberNode>(type, value);
   }
 

@@ -56,7 +56,7 @@ protected:
 
 class NumberNode : public AstNode {
 public:
-  int value() const {
+  double value() const {
     return value_;
   }
 
@@ -64,12 +64,12 @@ protected:
   friend class AstNodeFactory;
   friend class AstAllocator;
 
-  explicit NumberNode(AstNodeType type, int value)
+  explicit NumberNode(AstNodeType type, double value)
   : AstNode(type),
     value_(value)
   {}
 
-  int value_;
+  double value_;
   virtual bool Polymorphic() {
     return true;
   }

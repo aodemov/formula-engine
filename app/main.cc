@@ -23,7 +23,7 @@ int main(int, char**) {
     }
 
     formulaEngine::Engine engine;
-    int result = engine.Evaluate(input);
+    double result = engine.Evaluate(input);
     std::cout << "RES: " << result << std::endl;
   }
 

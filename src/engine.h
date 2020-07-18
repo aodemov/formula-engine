@@ -8,7 +8,7 @@
 namespace formulaEngine {
 class Engine {
 public:
-  typedef int (Engine::*EvaluationFunction)(AstNode*);
+  typedef double (Engine::*EvaluationFunction)(AstNode*);
 
   explicit Engine();
 
@@ -17,17 +17,17 @@ public:
     delete allocator_;
   }
 
-  int Evaluate(std::string& expression);
+  double Evaluate(std::string& expression);
 
 private:
-  int EvaluateNode(AstNode* node);
+  double EvaluateNode(AstNode* node);
 
-  int EvaluateNumber(AstNode* node);
-  int EvaluateAddition(AstNode* node);
-  int EvaluateSubtraction(AstNode* node);
-  int EvaluateMultiplication(AstNode* node);
-  int EvaluateDivision(AstNode* node);
-  int EvaluateModulus(AstNode* node);
+  double EvaluateNumber(AstNode* node);
+  double EvaluateAddition(AstNode* node);
+  double EvaluateSubtraction(AstNode* node);
+  double EvaluateMultiplication(AstNode* node);
+  double EvaluateDivision(AstNode* node);
+  double EvaluateModulus(AstNode* node);
 
   Parser* parser_;
   AstAllocator* allocator_;

@@ -55,6 +55,7 @@ Token::TokenType Lexer::ReadSingleToken() {
         continue;
 
       case Token::NUMBER:
+      case Token::POINT:
         return ReadNumber();
 
       case Token::EOE:
@@ -77,14 +78,51 @@ void Lexer::SkipWhitespace(){
 }
 
 Token::TokenType Lexer::ReadNumber() {
-  if (!isDigit(scanner->Peek()))
-    return Token::ILLEGAL;
+  bool hasDigitsBeforePoint = false;
+  bool hasDecimalPoint = false;
+  bool hasDigitsAfterPoint = false;
+  bool hasExponentialNotation = false;
 
+  hasDigitsBeforePoint = ReadDigits();
+
+  if (isDecimalPoint(scanner->Peek())) {
+    hasDecimalPoint = true;
+    next.value += scanner->Advance();
+
+    hasDigitsAfterPoint = ReadDigits();
+  }
+
+  if (!hasDigitsBeforePoint && !hasDigitsAfterPoint) {
+      return Token::ILLEGAL;
+    }
+
+  if (isExponentialNotation(scanner->Peek())) {
+    hasExponentialNotation = true;
+
+    next.value += scanner->Advance();
+
+    if (isSignOperator(scanner->Peek())) {
+      next.value += scanner->Advance();
+    }
+
+    if (!isDigit(scanner->Peek())) {
+      return Token::ILLEGAL;
+    }
+
+    ReadDigits();
+  }
+  
+  return Token::NUMBER;
+}
+
+bool Lexer::ReadDigits() {
+  bool read = false;
   while (isDigit(scanner->Peek())) {
+    read = true;
     next.value += scanner->Advance();
   }
 
-  return Token::NUMBER;
+  return read;
 }
 
 } // namespace formulaEngine

@@ -66,7 +66,7 @@ AstNode* Parser::ParseFactor() {
 AstNode* Parser::ParseNumber() {
   Expect(Token::NUMBER);
   Token token = lexer_->ReadNext();
-  int value = std::stoi(token.value);
+  double value = std::stod(token.value);
   return factory_->NewNumberNode(AstNode::NUMBER, value);
 }
 

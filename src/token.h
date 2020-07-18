@@ -21,6 +21,8 @@ public:
     SLASH,      // /
     PERCENT,    // %
 
+    POINT,      // .
+
     NUMBER,     // number
 
     WHITESPACE, // whitespace

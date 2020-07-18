@@ -23,4 +23,16 @@ inline bool isDigit(char c) {
 inline bool isLetterOrDigit(char c) {
   return isLetter(c) || isDigit(c);
 }
+
+inline bool isDecimalPoint(char c) {
+  return c == '.';
+}
+
+inline bool isExponentialNotation(char c) {
+  return c == 'e' || c == 'E';
+}
+
+inline bool isSignOperator(char c) {
+  return c == '-' || c == '+';
+}
 }

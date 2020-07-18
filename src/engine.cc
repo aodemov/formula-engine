@@ -2,6 +2,8 @@
 
 #include "ast-node.h"
 
+#include <cmath>
+
 namespace formulaEngine {
 Engine::Engine()
   {
@@ -16,27 +18,27 @@ Engine::Engine()
     evaluationMap[AstNode::NUMBER] = &EvaluateNumber;
   }
 
-int Engine::Evaluate(std::string& expression) {
+double Engine::Evaluate(std::string& expression) {
   auto node = parser_->Parse(expression);
-  int result = EvaluateNode(node);
+  double result = EvaluateNode(node);
   allocator_->DeleteAll();
   return result;
 }
 
-int Engine::EvaluateNode(AstNode* node) {
+double Engine::EvaluateNode(AstNode* node) {
   auto type = node->type();
 
   EvaluationFunction func = evaluationMap.at(type);
   return (this->*func)(node);
 }
 
-int Engine::EvaluateNumber(AstNode* node) {
+double Engine::EvaluateNumber(AstNode* node) {
   auto n = dynamic_cast<NumberNode*>(node);
 
   return n->value();
 }
 
-int Engine::EvaluateAddition(AstNode* node) {
+double Engine::EvaluateAddition(AstNode* node) {
   auto n = dynamic_cast<BinaryOperatorNode*>(node);
   auto left = EvaluateNode(n->left());
   auto right = EvaluateNode(n->right());
@@ -44,7 +46,7 @@ int Engine::EvaluateAddition(AstNode* node) {
   return left + right;
 }
 
-int Engine::EvaluateSubtraction(AstNode* node) {
+double Engine::EvaluateSubtraction(AstNode* node) {
   auto n = dynamic_cast<BinaryOperatorNode*>(node);
   auto left = EvaluateNode(n->left());
   auto right = EvaluateNode(n->right());
@@ -52,7 +54,7 @@ int Engine::EvaluateSubtraction(AstNode* node) {
   return left - right;
 }
 
-int Engine::EvaluateMultiplication(AstNode* node) {
+double Engine::EvaluateMultiplication(AstNode* node) {
   auto n = dynamic_cast<BinaryOperatorNode*>(node);
   auto left = EvaluateNode(n->left());
   auto right = EvaluateNode(n->right());
@@ -60,7 +62,7 @@ int Engine::EvaluateMultiplication(AstNode* node) {
   return left * right;
 }
 
-int Engine::EvaluateDivision(AstNode* node) {
+double Engine::EvaluateDivision(AstNode* node) {
   auto n = dynamic_cast<BinaryOperatorNode*>(node);
   auto left = EvaluateNode(n->left());
   auto right = EvaluateNode(n->right());
@@ -68,12 +70,12 @@ int Engine::EvaluateDivision(AstNode* node) {
   return left / right;
 }
 
-int Engine::EvaluateModulus(AstNode* node) {
+double Engine::EvaluateModulus(AstNode* node) {
   auto n = dynamic_cast<BinaryOperatorNode*>(node);
   auto left = EvaluateNode(n->left());
   auto right = EvaluateNode(n->right());
 
-  return left % right;
+  return std::fmod(left, right);
 }
 
 }
