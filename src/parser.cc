@@ -60,7 +60,19 @@ AstNode* Parser::ParseTerm() {
 }
 
 AstNode* Parser::ParseFactor() {
-  return ParseNumber();
+  if (lexer_->Peek().type == Token::LPAREN) {
+    lexer_->ReadNext();
+
+    auto node = ParseExpression();
+
+    Expect(Token::RPAREN);
+
+    lexer_->ReadNext();
+
+    return node;
+  } else {
+    return ParseNumber();
+  }
 }
 
 AstNode* Parser::ParseNumber() {

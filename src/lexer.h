@@ -31,6 +31,8 @@ private:
       c == '*' ? Token::STAR :
       c == '/' ? Token::SLASH :
       c == '%' ? Token::PERCENT :
+      c == '(' ? Token::LPAREN :
+      c == ')' ? Token::RPAREN :
       isDecimalPoint(c) ? Token::POINT :
       isDigit(c) ? Token::NUMBER :
       isWhitespace(c) ? Token::WHITESPACE :

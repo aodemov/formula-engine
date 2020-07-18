@@ -23,7 +23,10 @@ public:
 
     POINT,      // .
 
-    NUMBER,     // number
+    LPAREN,       // (
+    RPAREN,       // )
+
+    NUMBER,     // real number
 
     WHITESPACE, // whitespace
   };
