@@ -23,10 +23,6 @@ public:
   AstNode(const AstNode& other) = delete;
   void operator=(const AstNode& other) = delete;
 
-  const Token& token() const {
-    return token_;
-  }
-
   AstNodeType type() const {
     return type_;
   }
@@ -35,14 +31,27 @@ protected:
   friend class AstNodeFactory;
   friend class AstAllocator;
 
-  explicit AstNode(Token token, AstNodeType type)
-    : token_(token),
-      type_(type)
+  explicit AstNode(AstNodeType type)
+    : type_(type)
     {}
 
-  Token token_;
   AstNodeType type_;
   virtual bool Polymorphic() = 0;
+};
+
+class Expression : public AstNode {
+public:
+protected:
+  friend class AstNodeFactory;
+  friend class AstAllocator;
+
+  explicit Expression(AstNodeType type)
+    : AstNode(type)
+    {}
+
+  virtual bool Polymorphic() {
+    return true;
+  }
 };
 
 class NumberNode : public AstNode {
@@ -55,28 +64,12 @@ protected:
   friend class AstNodeFactory;
   friend class AstAllocator;
 
-  explicit NumberNode(Token token, AstNodeType type)
-  : AstNode(token, type)
-  {
-    value_ = std::stoi(token_.value);
-  }
+  explicit NumberNode(AstNodeType type, int value)
+  : AstNode(type),
+    value_(value)
+  {}
 
   int value_;
-  virtual bool Polymorphic() {
-    return true;
-  }
-};
-
-class Expression : public AstNode {
-public:
-protected:
-  friend class AstNodeFactory;
-  friend class AstAllocator;
-
-  explicit Expression(Token token, AstNodeType type)
-    : AstNode(token, type)
-    {}
-
   virtual bool Polymorphic() {
     return true;
   }
@@ -102,8 +95,8 @@ protected:
   friend class AstNodeFactory;
   friend class AstAllocator;
 
-  explicit BinaryOperatorNode(Token token, AstNodeType type, AstNode* left, AstNode* right)
-    : Expression(token, type),
+  explicit BinaryOperatorNode(AstNodeType type, AstNode* left, AstNode* right)
+    : Expression(type),
       left_(left),
       right_(right)
     {}

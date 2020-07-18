@@ -1,6 +1,7 @@
 #include "parser.h"
 
 #include <memory>
+#include <string>
 
 #include "parsing-exception.h"
 
@@ -26,7 +27,7 @@ AstNode* Parser::ParseExpression() {
       case Token::MINUS:   nodeType = AstNode::SUB; break;
     }
 
-    left = factory_->NewBinaryOperatorNode(next, nodeType, left, right);
+    left = factory_->NewBinaryOperatorNode(nodeType, left, right);
 
     next = lexer_->Peek();
   }
@@ -50,7 +51,7 @@ AstNode* Parser::ParseTerm() {
       case Token::PERCENT: nodeType = AstNode::MOD; break;
     }
 
-    left = factory_->NewBinaryOperatorNode(next, nodeType, left, right);
+    left = factory_->NewBinaryOperatorNode(nodeType, left, right);
     
     next = lexer_->Peek();
   }
@@ -64,7 +65,9 @@ AstNode* Parser::ParseFactor() {
 
 AstNode* Parser::ParseNumber() {
   Expect(Token::NUMBER);
-  return factory_->NewNumberNode(lexer_->ReadNext(), AstNode::NUMBER);
+  Token token = lexer_->ReadNext();
+  int value = std::stoi(token.value);
+  return factory_->NewNumberNode(AstNode::NUMBER, value);
 }
 
 

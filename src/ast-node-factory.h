@@ -13,12 +13,12 @@ public:
   AstNodeFactory(const AstNodeFactory& other) = delete;
   AstNodeFactory& operator=(const AstNodeFactory& other) = delete;
 
-  NumberNode* NewNumberNode(Token token, AstNode::AstNodeType type) {
-    return allocator_->New<NumberNode>(token, type);
+  NumberNode* NewNumberNode(AstNode::AstNodeType type, int value) {
+    return allocator_->New<NumberNode>(type, value);
   }
 
-  BinaryOperatorNode* NewBinaryOperatorNode(Token token, AstNode::AstNodeType type, AstNode* left, AstNode* right) {
-    return allocator_->New<BinaryOperatorNode>(token, type, left, right);
+  BinaryOperatorNode* NewBinaryOperatorNode(AstNode::AstNodeType type, AstNode* left, AstNode* right) {
+    return allocator_->New<BinaryOperatorNode>(type, left, right);
   }
 
 private:
