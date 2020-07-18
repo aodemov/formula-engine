@@ -3,17 +3,12 @@
 #include <memory>
 
 #include "engine.h"
+#include "parsing-exception.h"
 
 int main(int, char**) {
   std::string input;
-  
 
-  // formulaEngine::Lexer lexer(std::make_unique<formulaEngine::Scanner>(input));
-
-  // formulaEngine::Token token;
-  // while ((token = lexer.ReadNext()).type != formulaEngine::Token::EOE) {
-  //   std::cout << "Found token " << token.value << " (" << token.type << ") at position (" << token.beginPosition << "..." << token.endPosition << ")." << std::endl;
-  // }
+  formulaEngine::Engine engine;
 
   while (true) {
     std::getline(std::cin, input);
@@ -22,9 +17,13 @@ int main(int, char**) {
       break;
     }
 
-    formulaEngine::Engine engine;
-    double result = engine.Evaluate(input);
-    std::cout << "RES: " << result << std::endl;
+    try {
+      double result = engine.Evaluate(input);
+      std::cout << "RES: " << result << std::endl;
+    } catch(formulaEngine::ParsingException& e) {
+      std::cout << "ERROR: " << e.message() << std::endl;
+    }
+    
   }
 
   

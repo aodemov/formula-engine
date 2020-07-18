@@ -60,10 +60,12 @@ Token::TokenType Lexer::ReadSingleToken() {
 
       case Token::EOE:
         // End of source encountered, return EOE token and do not advance.
+        next.value = "EOE";
         return token;
       
       default:
         // There is only one left
+        next.value = scanner->Peek();
         return Token::ILLEGAL;
     }
 
