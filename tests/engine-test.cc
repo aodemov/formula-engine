@@ -75,7 +75,7 @@ TEST(EngineTest, ParenthesesTests){
   }
 }
 
-TEST(EngineTest, FActorialTests){
+TEST(EngineTest, FactorialTests){
   using namespace std;
   using namespace formulaEngine;
 
