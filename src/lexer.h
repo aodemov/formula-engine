@@ -34,6 +34,7 @@ private:
       c == '(' ? Token::LPAREN :
       c == ')' ? Token::RPAREN :
       c == '!' ? Token::EXCL :
+      c == '^' ? Token::CARET :
       isDecimalPoint(c) ? Token::POINT :
       isDigit(c) ? Token::NUMBER :
       isWhitespace(c) ? Token::WHITESPACE :

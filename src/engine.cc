@@ -25,6 +25,7 @@ Engine::Engine()
     evaluationMap[AstNode::NUMBER] = &EvaluateNumber;
     evaluationMap[AstNode::NEG] = &EvaluateNegation;
     evaluationMap[AstNode::FAC] = &EvaluateFactorial;
+    evaluationMap[AstNode::EXP] = &EvaluateExponent;
   }
 
 double Engine::Evaluate(std::string& expression) {
@@ -99,6 +100,14 @@ double Engine::EvaluateFactorial(AstNode* node) {
   auto op = EvaluateNode(n->operand());
 
   return factorial(static_cast<int>(op));
+}
+
+double Engine::EvaluateExponent(AstNode* node) {
+  auto n = dynamic_cast<BinaryOperatorNode*>(node);
+  auto left = EvaluateNode(n->left());
+  auto right = EvaluateNode(n->right());
+
+  return std::pow(left, right);
 }
 
 }

@@ -64,11 +64,28 @@ AstNode* Parser::ParseFactor() {
 
   if (IsNext(Token::MINUS)) {
     lexer_->ReadNext();
-    auto operand = ParseFactor();
+    auto operand = ParseExponent();
     node = factory_->NewUnaryOperatorNode(AstNode::NEG, operand);
   } else {
-    node = ParsePrimary();
+    node = ParseExponent();
   }
+
+  return node;
+}
+
+AstNode* Parser::ParseExponent() {
+  auto node = ParseFactorial();
+
+  if (IsNext(Token::CARET)) {
+    lexer_->ReadNext();
+    node = factory_->NewBinaryOperatorNode(AstNode::EXP, node, ParseExponent());
+  }
+
+  return node;
+}
+
+AstNode* Parser::ParseFactorial() {
+  auto node = ParsePrimary();
 
   if (IsNext(Token::EXCL)) {
     lexer_->ReadNext();

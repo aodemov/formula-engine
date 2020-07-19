@@ -30,6 +30,7 @@ private:
   double EvaluateModulus(AstNode* node);
   double EvaluateNegation(AstNode* node);
   double EvaluateFactorial(AstNode* node);
+  double EvaluateExponent(AstNode* node);
 
   Parser* parser_;
   AstAllocator* allocator_;

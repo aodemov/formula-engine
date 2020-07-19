@@ -49,6 +49,7 @@ Token::TokenType Lexer::ReadSingleToken() {
       case Token::LPAREN:
       case Token::RPAREN:
       case Token::EXCL:
+      case Token::CARET:
         // One character tokens
         next.value = scanner->Advance();
         return token;

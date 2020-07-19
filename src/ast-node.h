@@ -19,6 +19,7 @@ public:
     MOD,    // Modulus
     NEG,    // Unary negation
     FAC,    // Factorial
+    EXP,    // Exponent
     NUMBER  // Number
   };
 

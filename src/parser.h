@@ -31,6 +31,8 @@ private:
   AstNode* ParseExpression();
   AstNode* ParseTerm();
   AstNode* ParseFactor();
+  AstNode* ParseFactorial();
+  AstNode* ParseExponent();
   AstNode* ParsePrimary();
   AstNode* ParseSubexpression();
   AstNode* ParseNumber();

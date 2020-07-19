@@ -22,11 +22,12 @@ public:
     PERCENT,    // %
 
     EXCL,       // !
+    CARET,      // ^
 
     POINT,      // .
 
-    LPAREN,       // (
-    RPAREN,       // )
+    LPAREN,     // (
+    RPAREN,     // )
 
     NUMBER,     // real number
 
