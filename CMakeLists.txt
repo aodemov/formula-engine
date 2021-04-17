@@ -9,42 +9,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 
 # ------------------------ FILES ------------------------
 
-set(SOURCES
-  ${PROJECT_SOURCE_DIR}/src/token.cc
-  ${PROJECT_SOURCE_DIR}/src/lexer.cc
-  ${PROJECT_SOURCE_DIR}/src/scanner.cc
-  ${PROJECT_SOURCE_DIR}/src/ast-node.cc
-  ${PROJECT_SOURCE_DIR}/src/parser.cc
-  ${PROJECT_SOURCE_DIR}/src/ast-node-factory.cc
-  ${PROJECT_SOURCE_DIR}/src/ast-allocator.cc
-  ${PROJECT_SOURCE_DIR}/src/engine.cc
-)
-
-set(HEADERS
-  ${PROJECT_SOURCE_DIR}/src/token.h
-  ${PROJECT_SOURCE_DIR}/src/lexer.h
-  ${PROJECT_SOURCE_DIR}/src/scanner.h
-  ${PROJECT_SOURCE_DIR}/src/ast-node.h
-  ${PROJECT_SOURCE_DIR}/src/parser.h
-  ${PROJECT_SOURCE_DIR}/src/ast-node-factory.h
-  ${PROJECT_SOURCE_DIR}/src/ast-allocator.h
-  ${PROJECT_SOURCE_DIR}/src/engine.h
-)
+file(GLOB_RECURSE libsources src/*.h src/*.cpp src/*.hpp src/*.c src/*.cc)
 
 set(LIB_NAME engine)
 
 # ------------------------ BUILD ------------------------
 
 # LIBRARY
-add_library(${LIB_NAME} "")
-
-target_sources(
-  ${LIB_NAME}
-  PUBLIC
-    ${HEADERS}
-  PRIVATE
-    ${SOURCES}
-)
+add_library(${LIB_NAME} ${libsources})
 
 target_include_directories(
   ${LIB_NAME}
