@@ -6,34 +6,28 @@
 #include <string>
 
 namespace formulaEngine {
+
+typedef double (*EvaluationFunction)(AstNode*);
+
 class Engine {
 public:
-  typedef double (Engine::*EvaluationFunction)(AstNode*);
-
-  explicit Engine();
-
-  ~Engine() {
-    delete parser_;
-    delete allocator_;
-  }
-
-  double Evaluate(std::string& expression);
+  static double Evaluate(std::string& expression);
 
 private:
-  double EvaluateNode(AstNode* node);
+  static double EvaluateNode(AstNode* node);
 
-  double EvaluateNumber(AstNode* node);
-  double EvaluateAddition(AstNode* node);
-  double EvaluateSubtraction(AstNode* node);
-  double EvaluateMultiplication(AstNode* node);
-  double EvaluateDivision(AstNode* node);
-  double EvaluateModulus(AstNode* node);
-  double EvaluateNegation(AstNode* node);
-  double EvaluateFactorial(AstNode* node);
-  double EvaluateExponent(AstNode* node);
+  static double EvaluateNumber(AstNode* node);
+  static double EvaluateAddition(AstNode* node);
+  static double EvaluateSubtraction(AstNode* node);
+  static double EvaluateMultiplication(AstNode* node);
+  static double EvaluateDivision(AstNode* node);
+  static double EvaluateModulus(AstNode* node);
+  static double EvaluateNegation(AstNode* node);
+  static double EvaluateFactorial(AstNode* node);
+  static double EvaluateExponent(AstNode* node);
 
-  Parser* parser_;
-  AstAllocator* allocator_;
-  std::map<AstNode::AstNodeType, EvaluationFunction> evaluationMap;
+  static Parser* parser_;
+  static AstAllocator* allocator_;
+  static std::map<AstNode::AstNodeType, EvaluationFunction> evaluationMap;
 };
 }

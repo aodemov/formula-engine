@@ -12,23 +12,26 @@ int factorial(int n)
   return (n == 1 || n == 0) ? 1 : factorial(n - 1) * n;
 }
 
-Engine::Engine()
-  {
-    allocator_ = new AstAllocator();
-    parser_ = new Parser(allocator_);
+std::map<AstNode::AstNodeType, EvaluationFunction> Engine::evaluationMap = {
+  { AstNode::ADD, &EvaluateAddition },
+  { AstNode::SUB, &EvaluateSubtraction },
+  { AstNode::MUL, &EvaluateMultiplication },
+  { AstNode::DIV, &EvaluateDivision },
+  { AstNode::MOD, &EvaluateModulus },
+  { AstNode::NEG, &EvaluateNegation },
+  { AstNode::FAC, &EvaluateFactorial },
+  { AstNode::EXP, &EvaluateExponent },
+  { AstNode::NUMBER, &EvaluateNumber},
+};
 
-    evaluationMap[AstNode::ADD] = &EvaluateAddition;
-    evaluationMap[AstNode::SUB] = &EvaluateSubtraction;
-    evaluationMap[AstNode::MUL] = &EvaluateMultiplication;
-    evaluationMap[AstNode::DIV] = &EvaluateDivision;
-    evaluationMap[AstNode::MOD] = &EvaluateModulus;
-    evaluationMap[AstNode::NUMBER] = &EvaluateNumber;
-    evaluationMap[AstNode::NEG] = &EvaluateNegation;
-    evaluationMap[AstNode::FAC] = &EvaluateFactorial;
-    evaluationMap[AstNode::EXP] = &EvaluateExponent;
-  }
+AstAllocator* Engine::allocator_ = nullptr;
+Parser* Engine::parser_ = nullptr;
+
 
 double Engine::Evaluate(std::string& expression) {
+  allocator_ = new AstAllocator();
+  parser_ = new Parser(allocator_);
+
   auto node = parser_->Parse(expression);
   double result = EvaluateNode(node);
   allocator_->DeleteAll();
@@ -39,7 +42,7 @@ double Engine::EvaluateNode(AstNode* node) {
   auto type = node->type();
 
   EvaluationFunction func = evaluationMap.at(type);
-  return (this->*func)(node);
+  return (*func)(node);
 }
 
 double Engine::EvaluateNumber(AstNode* node) {
