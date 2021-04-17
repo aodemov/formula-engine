@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdlib.h>
+#include <cstdint>
 #include <new>
 
 namespace formulaEngine {
@@ -65,7 +66,7 @@ public:
       position(0),
       top(0)
       {}
-      
+
   ~AstAllocator();
 
   AstAllocator(const AstAllocator& other) = delete;
